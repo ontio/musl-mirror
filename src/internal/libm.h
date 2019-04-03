@@ -16,7 +16,9 @@
 #include <stdint.h>
 #include <float.h>
 #include <math.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <complex.h>
+#endif
 #include <endian.h>
 
 #if LDBL_MANT_DIG == 53 && LDBL_MAX_EXP == 1024
@@ -153,6 +155,7 @@ do {                                              \
   (d) = __u.f;                                    \
 } while (0)
 
+#ifdef NO_ONTOLOGY_WASM
 #undef __CMPLX
 #undef CMPLX
 #undef CMPLXF
@@ -164,6 +167,7 @@ do {                                              \
 #define CMPLX(x, y) __CMPLX(x, y, double)
 #define CMPLXF(x, y) __CMPLX(x, y, float)
 #define CMPLXL(x, y) __CMPLX(x, y, long double)
+#endif
 
 /* fdlibm kernel functions */
 
@@ -174,14 +178,18 @@ hidden double __sin(double,double,int);
 hidden double __cos(double,double);
 hidden double __tan(double,double,int);
 hidden double __expo2(double);
+#ifdef NO_ONTOLOGY_WASM
 hidden double complex __ldexp_cexp(double complex,int);
+#endif
 
 hidden int    __rem_pio2f(float,double*);
 hidden float  __sindf(double);
 hidden float  __cosdf(double);
 hidden float  __tandf(double,int);
 hidden float  __expo2f(float);
+#ifdef NO_ONTOLOGY_WASM
 hidden float complex __ldexp_cexpf(float complex,int);
+#endif
 
 hidden int __rem_pio2l(long double, long double *);
 hidden long double __sinl(long double, long double, int);

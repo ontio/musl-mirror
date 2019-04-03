@@ -2,7 +2,9 @@
 #define _STDIO_IMPL_H
 
 #include <stdio.h>
+#ifdef NO_ONTOLOGY_WASM
 #include "syscall.h"
+#endif
 
 #define UNGET 8
 

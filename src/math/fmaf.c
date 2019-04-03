@@ -1,3 +1,4 @@
+#ifdef NO_ONTOLOGY_WASM
 /* origin: FreeBSD /usr/src/lib/msun/src/s_fmaf.c */
 /*-
  * Copyright (c) 2005-2011 David Schultz <das@FreeBSD.ORG>
@@ -91,3 +92,4 @@ float fmaf(float x, float y, float z)
 	z = adjusted_result;
 	return z;
 }
+#endif

@@ -3,7 +3,9 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/mman.h>
+#endif
 #include "libc.h"
 #include "lock.h"
 
@@ -115,6 +117,7 @@ static size_t zi_dotprod(const unsigned char *z, const unsigned char *v, size_t 
 	return y;
 }
 
+#ifdef NO_ONTOLOGY_WASM
 static void do_tzset()
 {
 	char buf[NAME_MAX+25], *pathname=buf+24;
@@ -237,6 +240,7 @@ static void do_tzset()
 	if (*s == ',') s++, getrule(&s, r0);
 	if (*s == ',') s++, getrule(&s, r1);
 }
+#endif
 
 /* Search zoneinfo rules to find the one that applies to the given time,
  * and determine alternate opposite-DST-status rule that may be needed. */
@@ -338,6 +342,7 @@ static long long rule_to_secs(const int *rule, int year)
 	return t;
 }
 
+#ifdef NO_ONTOLOGY_WASM
 /* Determine the time zone in effect for a given time in seconds since the
  * epoch. It can be given in local or universal time. The results will
  * indicate whether DST is in effect at the queried time, and will give both
@@ -420,3 +425,4 @@ const char *__tm_to_tzname(const struct tm *tm)
 	UNLOCK(lock);
 	return p;
 }
+#endif

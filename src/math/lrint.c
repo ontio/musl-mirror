@@ -1,5 +1,7 @@
 #include <limits.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <fenv.h>
+#endif
 #include "libm.h"
 
 /*

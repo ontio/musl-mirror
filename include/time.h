@@ -49,16 +49,24 @@ struct tm {
 	const char *__tm_zone;
 };
 
+#ifdef NO_ONTOLOGY_WASM
 clock_t clock (void);
+#endif
 time_t time (time_t *);
 double difftime (time_t, time_t);
+#ifdef NO_ONTOLOGY_WASM
 time_t mktime (struct tm *);
+#endif
 size_t strftime (char *__restrict, size_t, const char *__restrict, const struct tm *__restrict);
 struct tm *gmtime (const time_t *);
+#ifdef NO_ONTOLOGY_WASM
 struct tm *localtime (const time_t *);
+#endif
 char *asctime (const struct tm *);
+#ifdef NO_ONTOLOGY_WASM
 char *ctime (const time_t *);
 int timespec_get(struct timespec *, int);
+#endif
 
 #define CLOCKS_PER_SEC 1000000L
 
@@ -71,6 +79,7 @@ int timespec_get(struct timespec *, int);
 size_t strftime_l (char *  __restrict, size_t, const char *  __restrict, const struct tm *  __restrict, locale_t);
 
 struct tm *gmtime_r (const time_t *__restrict, struct tm *__restrict);
+#ifdef NO_ONTOLOGY_WASM
 struct tm *localtime_r (const time_t *__restrict, struct tm *__restrict);
 char *asctime_r (const struct tm *__restrict, char *__restrict);
 char *ctime_r (const time_t *, char *);
@@ -112,6 +121,7 @@ int timer_gettime (timer_t, struct itimerspec *);
 int timer_getoverrun (timer_t);
 
 extern char *tzname[2];
+#endif
 
 #endif
 
@@ -120,13 +130,17 @@ extern char *tzname[2];
 char *strptime (const char *__restrict, const char *__restrict, struct tm *__restrict);
 extern int daylight;
 extern long timezone;
+#ifdef NO_ONTOLOGY_WASM
 extern int getdate_err;
 struct tm *getdate (const char *);
+#endif
 #endif
 
 
 #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#ifdef NO_ONTOLOGY_WASM
 int stime(const time_t *);
+#endif
 time_t timegm(struct tm *);
 #endif
 

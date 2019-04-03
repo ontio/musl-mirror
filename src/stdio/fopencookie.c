@@ -1,8 +1,10 @@
 #define _GNU_SOURCE
 #include "stdio_impl.h"
 #include <stdlib.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/ioctl.h>
 #include <fcntl.h>
+#endif
 #include <errno.h>
 #include <string.h>
 

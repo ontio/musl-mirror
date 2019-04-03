@@ -1,3 +1,4 @@
+#ifdef NO_ONTOLOGY_WASM
 #include <iconv.h>
 #include <errno.h>
 #include <wchar.h>
@@ -683,3 +684,4 @@ end:
 	*ploc = loc;
 	return x;
 }
+#endif

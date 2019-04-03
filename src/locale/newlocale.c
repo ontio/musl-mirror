@@ -1,9 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <pthread.h>
+#endif
 #include "locale_impl.h"
 
+#ifdef NO_ONTOLOGY_WASM
 static pthread_once_t default_locale_once;
+#endif
 static struct __locale_struct default_locale, default_ctype_locale;
 
 static void default_locale_init(void)
@@ -44,7 +48,11 @@ locale_t __newlocale(int mask, const char *name, locale_t loc)
 
 	/* And provide builtins for the initial default locale, and a
 	 * variant of the C locale honoring the default locale's encoding. */
+#ifdef NO_ONTOLOGY_WASM
 	pthread_once(&default_locale_once, default_locale_init);
+#else
+	default_locale_init();
+#endif
 	if (!memcmp(&tmp, &default_locale, sizeof tmp)) return &default_locale;
 	if (!memcmp(&tmp, &default_ctype_locale, sizeof tmp))
 		return &default_ctype_locale;

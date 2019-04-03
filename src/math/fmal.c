@@ -1,3 +1,4 @@
+#ifdef NO_ONTOLOGY_WASM
 /* origin: FreeBSD /usr/src/lib/msun/src/s_fmal.c */
 /*-
  * Copyright (c) 2005-2011 David Schultz <das@FreeBSD.ORG>
@@ -290,4 +291,5 @@ long double fmal(long double x, long double y, long double z)
 	else
 		return add_and_denormalize(r.hi, adj, spread);
 }
+#endif
 #endif

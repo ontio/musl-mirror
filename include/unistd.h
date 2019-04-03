@@ -1,3 +1,4 @@
+#ifdef NO_ONTOLOGY_WASM
 #ifndef	_UNISTD_H
 #define	_UNISTD_H
 
@@ -464,4 +465,10 @@ int eaccess(const char *, int);
 }
 #endif
 
+#endif
+#else
+#pragma once
+#include <stdint.h>
+#include <features.h>
+#include <bits/alltypes.h>
 #endif

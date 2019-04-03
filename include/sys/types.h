@@ -3,6 +3,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef NO_ONTOLOGY_WASM
 
 #include <features.h>
 
@@ -78,6 +79,10 @@ typedef unsigned long long u_quad_t;
 #define fsfilcnt64_t fsfilcnt_t
 #define ino64_t ino_t
 #define off64_t off_t
+#endif
+#else
+#include <features.h>
+#include <bits/alltypes.h>
 #endif
 
 #ifdef __cplusplus

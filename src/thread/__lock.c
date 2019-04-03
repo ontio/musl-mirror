@@ -1,4 +1,5 @@
 #include "pthread_impl.h"
+#ifdef NO_ONTOLOGY_WASM
 
 /* This lock primitive combines a flag (in the sign bit) and a
  * congestion count (= threads inside the critical section, CS) in a
@@ -58,3 +59,14 @@ void __unlock(volatile int *l)
 		}
 	}
 }
+#else
+void __lock(volatile int *l)
+{
+	*l = 1;
+}
+
+void __unlock(volatile int *l)
+{
+	*l = 0;
+}
+#endif

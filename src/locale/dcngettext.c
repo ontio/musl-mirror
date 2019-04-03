@@ -3,8 +3,10 @@
 #include <string.h>
 #include <errno.h>
 #include <limits.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/stat.h>
 #include <sys/mman.h>
+#endif
 #include <ctype.h>
 #include "locale_impl.h"
 #include "atomic.h"
@@ -116,6 +118,7 @@ weak_alias(dummy_gettextdomain, __gettextdomain);
 
 char *dcngettext(const char *domainname, const char *msgid1, const char *msgid2, unsigned long int n, int category)
 {
+#ifdef NO_ONTOLOGY_WASM
 	static struct msgcat *volatile cats;
 	struct msgcat *p;
 	struct __locale_struct *loc = CURRENT_LOCALE;
@@ -254,6 +257,9 @@ notrans:
 	}
 	errno = old_errno;
 	return (char *)trans;
+#else
+	return (char *) ((n == 1) ? msgid1 : msgid2);
+#endif
 }
 
 char *dcgettext(const char *domainname, const char *msgid, int category)

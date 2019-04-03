@@ -1,8 +1,11 @@
 #include "stdio_impl.h"
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/uio.h>
+#endif
 
 size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 {
+#ifdef NO_ONTOLOGY_WASM
 	struct iovec iovs[2] = {
 		{ .iov_base = f->wbase, .iov_len = f->wpos-f->wbase },
 		{ .iov_base = (void *)buf, .iov_len = len }
@@ -31,4 +34,10 @@ size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 		iov[0].iov_base = (char *)iov[0].iov_base + cnt;
 		iov[0].iov_len -= cnt;
 	}
+#else
+	void debug( const char* cstr, uint32_t len );
+	debug((char*)(f->wbase), f->wpos-f->wbase);
+	debug((void*)buf, len);
+	return f->wpos-f->wbase + len;
+#endif
 }

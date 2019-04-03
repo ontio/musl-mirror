@@ -1,5 +1,6 @@
 #ifndef _PTHREAD_IMPL_H
 #define _PTHREAD_IMPL_H
+#ifdef NO_ONTOLOGY_WASM
 
 #include <pthread.h>
 #include <signal.h>
@@ -188,4 +189,16 @@ extern hidden unsigned __default_guardsize;
 
 #define __ATTRP_C11_THREAD ((void*)(uintptr_t)-1)
 
+#else
+#include <errno.h>
+#include <limits.h>
+#include "libc.h"
+#define pthread __pthread
+struct pthread {
+	int tid;
+	int errno_val;
+	locale_t locale;
+};
+#include "pthread_arch.h"
+#endif
 #endif

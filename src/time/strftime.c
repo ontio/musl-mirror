@@ -8,6 +8,10 @@
 #include "locale_impl.h"
 #include "time_impl.h"
 
+#ifndef NO_ONTOLOGY_WASM
+#include <assert.h>
+#endif
+
 static int is_leap(int y)
 {
 	/* Avoid overflow */
@@ -179,11 +183,15 @@ const char *__strftime_fmt_1(char (*s)[100], size_t *l, int f, const struct tm *
 			tm->__tm_gmtoff/3600*100 + tm->__tm_gmtoff%3600/60);
 		return *s;
 	case 'Z':
+#ifdef NO_ONTOLOGY_WASM
 		if (tm->tm_isdst < 0) {
 			*l = 0;
 			return "";
 		}
 		fmt = __tm_to_tzname(tm);
+#else
+		__assert_fail("strftime %Z not supported.", __FILE__, __LINE__, __func__);
+#endif
 		goto string;
 	case '%':
 		*l = 1;

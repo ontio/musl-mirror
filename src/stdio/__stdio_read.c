@@ -1,8 +1,11 @@
 #include "stdio_impl.h"
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/uio.h>
+#endif
 
 size_t __stdio_read(FILE *f, unsigned char *buf, size_t len)
 {
+#ifdef NO_ONTOLOGY_WASM
 	struct iovec iov[2] = {
 		{ .iov_base = buf, .iov_len = len - !!f->buf_size },
 		{ .iov_base = f->buf, .iov_len = f->buf_size }
@@ -21,4 +24,7 @@ size_t __stdio_read(FILE *f, unsigned char *buf, size_t len)
 	f->rend = f->buf + cnt;
 	if (f->buf_size) buf[len-1] = *f->rpos++;
 	return len;
+#else
+	return 0;
+#endif
 }

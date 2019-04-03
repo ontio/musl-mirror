@@ -1,7 +1,9 @@
 #ifndef MALLOC_IMPL_H
 #define MALLOC_IMPL_H
 
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/mman.h>
+#endif
 
 hidden void *__expand_heap(size_t *);
 

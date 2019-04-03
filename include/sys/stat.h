@@ -4,6 +4,7 @@
 extern "C" {
 #endif
 
+#ifdef NO_ONTOLOGY_WASM
 #include <features.h>
 
 #define __NEED_dev_t
@@ -108,6 +109,10 @@ int lchmod(const char *, mode_t);
 #define fsfilcnt64_t fsfilcnt_t
 #define ino64_t ino_t
 #define off64_t off_t
+#endif
+#else
+#include <features.h>
+#include <bits/alltypes.h>
 #endif
 
 #ifdef __cplusplus

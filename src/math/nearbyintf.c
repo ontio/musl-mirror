@@ -1,4 +1,6 @@
+#ifdef NO_ONTOLOGY_WASM
 #include <fenv.h>
+#endif
 #include <math.h>
 
 float nearbyintf(float x)

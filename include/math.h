@@ -201,8 +201,10 @@ float       floorf(float);
 long double floorl(long double);
 
 double      fma(double, double, double);
+#ifdef NO_ONTOLOGY_WASM
 float       fmaf(float, float, float);
 long double fmal(long double, long double, long double);
+#endif
 
 double      fmax(double, double);
 float       fmaxf(float, float);

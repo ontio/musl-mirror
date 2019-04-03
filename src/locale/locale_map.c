@@ -1,6 +1,8 @@
 #include <locale.h>
 #include <string.h>
+#ifdef NO_ONTOLOGY_WASM
 #include <sys/mman.h>
+#endif
 #include "locale_impl.h"
 #include "libc.h"
 #include "lock.h"
@@ -65,6 +67,7 @@ const struct __locale_map *__get_locale(int cat, const char *val)
 	if (!libc.secure) path = getenv("MUSL_LOCPATH");
 	/* FIXME: add a default path? */
 
+#ifdef NO_ONTOLOGY_WASM
 	if (path) for (; *path; path=z+!!*z) {
 		z = __strchrnul(path, ':');
 		l = z - path - !!*z;
@@ -90,6 +93,7 @@ const struct __locale_map *__get_locale(int cat, const char *val)
 			break;
 		}
 	}
+#endif
 
 	/* If no locale definition was found, make a locale map
 	 * object anyway to store the name, which is kept for the
