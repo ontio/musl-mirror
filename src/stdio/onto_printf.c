@@ -100,9 +100,9 @@ static inline void _out_null(char character, void* buffer, size_t idx, size_t ma
   (void)character; (void)buffer; (void)idx; (void)maxlen;
 }
 
-extern void debug(const char*, size_t);
+extern void ontio_debug(const char*, size_t);
 void _putchar(char c) {
-   debug(&c, 1);
+   ontio_debug(&c, 1);
 }
 
 // internal _putchar wrapper
@@ -707,7 +707,7 @@ int printf(const char* format, ...)
   va_start(va, format);
   const int ret = _vsnprintf(_out_buffer, buffer, 1024, format, va);
   va_end(va);
-  debug(buffer,strlen(buffer));
+  ontio_debug(buffer,strlen(buffer));
   return ret;
 #endif
 }
