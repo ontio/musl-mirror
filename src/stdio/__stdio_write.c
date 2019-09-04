@@ -35,9 +35,9 @@ size_t __stdio_write(FILE *f, const unsigned char *buf, size_t len)
 		iov[0].iov_len -= cnt;
 	}
 #else
-	void debug( const char* cstr, uint32_t len );
-	debug((char*)(f->wbase), f->wpos-f->wbase);
-	debug((void*)buf, len);
+	void ontio_debug( const char* cstr, uint32_t len );
+	ontio_debug((char*)(f->wbase), f->wpos-f->wbase);
+	ontio_debug((void*)buf, len);
 	return f->wpos-f->wbase + len;
 #endif
 }
